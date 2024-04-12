@@ -104,8 +104,12 @@ This part was inspired by: https://dev.to/abflatiron/deploy-a-basic-react-projec
     ```bash
     cd /var/www/html/mysteriouslockbox
     sudo git pull
-    cd mysterious-app
-    npm start
+    ```
+3. **Automate the Build**: Build the React App:
+    Update the nginx to point to the correct entrypoint
+    ```bash
+    npm run build
+    sudo systemctl reload nginx
     ```
 
 ### X. Troubleshooting
