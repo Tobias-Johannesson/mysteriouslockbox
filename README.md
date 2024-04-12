@@ -47,9 +47,13 @@ sudo pip install awscli --upgrade
 mkdir -p ~/.aws
 nano ~/.aws/credentials
 # Structure your credentials file as follows:
-#[default]
-#aws_access_key_id = YOUR_ACCESS_KEY_ID
-#aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
+```
+```ini
+[default]
+aws_access_key_id = YOUR_ACCESS_KEY_ID
+aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
+```
+```bash
 chmod 700 ~/.aws
 chmod 600 ~/.aws/credentials
 
@@ -91,7 +95,8 @@ npm start
 sudo chown -R $USER:$USER /var/www/html/mysteriouslockbox
 ```
 
-The DNS IAM role for certbot requires the following permissions
+The following JSON outlines the necessary permissions for the DNS IAM role used by Certbot to automate DNS challenges with AWS Route 53. This role should have permissions to modify DNS records:
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -110,3 +115,4 @@ The DNS IAM role for certbot requires the following permissions
         }
     ]
 }
+```
