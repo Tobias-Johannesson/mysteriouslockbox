@@ -1,4 +1,4 @@
-# Mysteriouslockbox
+# MysteriousLockbox
 
 ## Introduction
 A basic React website hosted on AWS EC2, configured to run securely with HTTPS. This document provides a step-by-step guide on setting up the project on an Ubuntu server.
@@ -88,6 +88,11 @@ npm install
 # Start the application
 npm start
 ```
+
+This part was inspired by: https://dev.to/abflatiron/deploy-a-basic-react-project-to-amazon-aws-ec2-1aoh
+
+### 2. The React Application
+...
 
 ### X. Troubleshooting
 ```bash
