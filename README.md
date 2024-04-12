@@ -91,8 +91,22 @@ npm start
 
 This part was inspired by: https://dev.to/abflatiron/deploy-a-basic-react-project-to-amazon-aws-ec2-1aoh
 
-### 2. The React Application
-...
+### 2. Developing and Updating the React Application
+
+1. **Update and Test Locally**: Make changes to your React application locally. Test the changes thoroughly to ensure functionality. You can run your application locally using:
+    ```bash
+    npm start
+    git add .
+    git commit -m "Describe your changes here"
+    git push
+    ```
+2. **Pull Updates in the EC2**: SSH into the EC2, and run the following:
+    ```bash
+    cd /var/www/html/mysteriouslockbox
+    sudo git pull
+    cd mysterious-app
+    npm start
+    ```
 
 ### X. Troubleshooting
 ```bash
