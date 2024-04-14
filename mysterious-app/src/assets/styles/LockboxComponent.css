@@ -1,22 +1,3 @@
-.keyhole-button {
-    background-image: url('../images/keyhole.png'); /* Example image path */
-    background-size: cover; /* Cover the entire button area */
-    border: none;
-    width: 100px; /* Adjust based on design */
-    height: 100px; /* Adjust based on design */
-    cursor: pointer;
-}
-
-.keyhole-button:hover {
-    filter: brightness(1.2); /* Adjust brightness on hover */
-    cursor: url('../images/key-cursor.png'), auto;
-    background-image: url('../images/keyhole.png'); /* Different image on hover */
-}
-
-.keyhole-unlocked {
-    background-image: url('../images/keyhole.png'); /* Different image after unlocked */
-}
-
 .mysterious-romantic-text {
     font-family: 'Great Vibes', cursive; /* The font you imported */
     color: #f4e8c1; /* A soft, antique-like color */
@@ -24,4 +5,20 @@
     text-align: center; /* Center the text if it fits the design */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Soft shadow for depth */
     margin: 20px; /* Add some space around the paragraph */
+}
+
+.lockbox {
+    width: 80%; /* Makes the width 80% of its container, adjust based on your design */
+    max-width: 500px; /* Ensures it does not stretch beyond 500px */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    transition: transform 0.3s ease-in-out;
+}
+
+@media (max-width: 600px) { /* For smaller devices */
+    .lockbox {
+        width: 95%; /* Increases width to 95% of the container on small screens */
+    }
 }

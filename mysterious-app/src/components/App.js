@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../assets/styles/App.css';
 import LockboxComponent from './LockboxComponent';
+import KeyComponent from './KeyComponent';
 
 function App() {
-  /* ... */
-  
+  /* */
+
   return (
     <div className="App">
-      <header className="App-header"></header>
-      <LockboxComponent />
-      <footer></footer>
+      {<LockboxComponent />}
+      {<KeyComponent />}
     </div>
   );
 }
