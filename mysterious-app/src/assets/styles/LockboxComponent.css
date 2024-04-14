@@ -1,0 +1,27 @@
+.keyhole-button {
+    background-image: url('../images/keyhole.png'); /* Example image path */
+    background-size: cover; /* Cover the entire button area */
+    border: none;
+    width: 100px; /* Adjust based on design */
+    height: 100px; /* Adjust based on design */
+    cursor: pointer;
+}
+
+.keyhole-button:hover {
+    filter: brightness(1.2); /* Adjust brightness on hover */
+    cursor: url('../images/key-cursor.png'), auto;
+    background-image: url('../images/keyhole.png'); /* Different image on hover */
+}
+
+.keyhole-unlocked {
+    background-image: url('../images/keyhole.png'); /* Different image after unlocked */
+}
+
+.mysterious-romantic-text {
+    font-family: 'Great Vibes', cursive; /* The font you imported */
+    color: #f4e8c1; /* A soft, antique-like color */
+    font-size: 1.2em; /* Adjust size as needed */
+    text-align: center; /* Center the text if it fits the design */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Soft shadow for depth */
+    margin: 20px; /* Add some space around the paragraph */
+}
