@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       {<LockboxComponent />}
       {<KeyComponent />}
-      {<DataComponent />}
+      {false ? <DataComponent /> : <div></div>}
     </div>
   );
 }
