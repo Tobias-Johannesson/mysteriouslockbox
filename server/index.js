@@ -12,7 +12,10 @@ const pool = new Pool({
 });
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000'  // Allow only your React app's domain
+}));
+
 app.use(express.json());
 
 app.get('/api/keys', async (req, res) => {
