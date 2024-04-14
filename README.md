@@ -29,7 +29,7 @@ nginx -v
 node -v
 npm -v
 
-sudo nano /etc/nginx/sites-available/default
+sudo vim /etc/nginx/sites-available/default
 # Add server block for port 80 redirect and 443 for HTTPS
 # Save and exit with CTRL+X, Y, Enter
 sudo nginx -t
