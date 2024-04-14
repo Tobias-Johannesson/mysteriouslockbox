@@ -1,0 +1,22 @@
+{
+    "name": "fullstack-app",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "start": "concurrently \"npm run start-server\" \"npm run start-client\"",
+        "start-server": "cd server && npm start",
+        "start-client": "cd client && npm start",
+        "install-dependencies": "npm run install-server && npm run install-client",
+        "install-server": "cd server && npm install",
+        "install-client": "cd client && npm install",
+        "build": "concurrently \"npm run build-server\" \"npm run build-client\"",
+        "build-server": "cd server && npm run build",
+        "build-client": "cd client && npm run build",
+        "test": "concurrently \"npm run test-server\" \"npm run test-client\"",
+        "test-server": "cd server && npm test",
+        "test-client": "cd client && npm test"
+    },
+    "devDependencies": {
+        "concurrently": "^7.6.0"
+    }
+}

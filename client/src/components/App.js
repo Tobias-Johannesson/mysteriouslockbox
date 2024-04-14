@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../assets/styles/App.css';
 import LockboxComponent from './LockboxComponent';
 import KeyComponent from './KeyComponent';
+import DataComponent from './DataComponent';
 
 function App() {
   /* */
@@ -10,6 +11,7 @@ function App() {
     <div className="App">
       {<LockboxComponent />}
       {<KeyComponent />}
+      {<DataComponent />}
     </div>
   );
 }

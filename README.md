@@ -109,8 +109,97 @@ This part was inspired by: https://dev.to/abflatiron/deploy-a-basic-react-projec
     Update the nginx to point to the correct entrypoint
     ```bash
     npm run build
+    npm install --save-dev @babel/plugin-proposal-private-property-in-object
     sudo systemctl reload nginx
     ```
+    
+### 3. Setting Up PostgreSQL on EC2
+
+This section provides instructions for installing and configuring PostgreSQL on the same AWS EC2 instance as your Node.js application.
+
+#### Install and Start PostgreSQL
+
+1. **Update and Upgrade the System**:
+Ensure your system's package list and installed packages are updated.
+```bash
+sudo apt update
+sudo apt upgrade -y
+```
+
+2. **Install PostgreSQL and Contributed Extensions**:
+Install PostgreSQL along with contributed extensions that provide additional utilities and functions.
+```bash
+sudo apt install postgresql postgresql-contrib -y
+```
+
+3. **To start the PostgreSQL service and configure it to launch on system startup**:
+Start the PostgreSQL service and configure it to automatically start on system boot.
+```bash
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+```
+
+4. **Configure PostgreSQL User and Database**:
+Switch to the PostgreSQL user and configure the database and roles.
+```bash
+sudo -u postgres psql
+```
+
+Execute the following SQL commands within the PostgreSQL shell:
+```bash
+CREATE ROLE <USERNAME> WITH LOGIN PASSWORD '<PASSWORD>';
+ALTER ROLE <USERNAME> CREATEDB;
+CREATE DATABASE keys OWNER <USERNAME>;
+GRANT ALL PRIVILEGES ON DATABASE keys TO <USERNAME>;
+\q
+```
+
+5. **Configure Network Access**:
+Edit the PostgreSQL configuration to set which IP addresses can connect.
+```bash
+sudo vim /etc/postgresql/14/main/postgresql.conf
+```
+
+Uncomment and modify the listen_addresses line as needed:
+# Set to 'localhost' for local-only connections
+listen_addresses = 'localhost'
+# Set to '*' to allow external connections
+# listen_addresses = '*'
+
+6. **Configure Client Authentication**:
+Configure MD5-based authentication for local connections by editing pg_hba.conf:
+```bash
+sudo vim /etc/postgresql/14/main/pg_hba.conf
+```
+Add or ensure this line exists:
+local   all   all   md5
+
+7. **Restart PostgreSQL and Test Connection**:
+Apply all configuration changes by restarting PostgreSQL, then test the connection.
+```bash
+sudo systemctl restart postgresql
+psql -U <USERNAME> -d keys
+```
+
+Replace <USERNAME> and <PASSWORD> with your actual username and a secure password. Ensure you edit paths like /etc/postgresql/14/main/... according to the PostgreSQL version installed on your system.
+
+Then we add the Tabel
+```bash
+CREATE TABLE keys (
+    id SERIAL PRIMARY KEY,
+    key_number INT NOT NULL,
+    description TEXT
+);
+```
+
+Add a key and test that it works
+```bash
+\d keys
+
+INSERT INTO keys (key_number) VALUES (101);
+SELECT * FROM keys;
+```
+
 
 ### X. Troubleshooting
 ```bash
@@ -139,3 +228,6 @@ The following JSON outlines the necessary permissions for the DNS IAM role used 
     ]
 }
 ```
+
+### Y. Misc
+All art is generated using OpenAI and the background from some images is cleared using the adove tool at https://new.express.adobe.com/tools/remove-background.
