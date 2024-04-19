@@ -19,7 +19,6 @@ function DataComponent() {
 
   return (
     <div>
-        <h1>Keys</h1>
         <ul>
             {keys.map(key => (
                 <li key={key.id}>{key.name}</li>
