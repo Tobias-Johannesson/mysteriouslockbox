@@ -1,21 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function DataComponent() {
-  useEffect(() => {
-    fetch('http://localhost:3001/api/keys')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => console.log(data))
-    .catch(error => console.error('Error fetching keys:', error));
+  const [keys, setKeys] = useState([]);
+
+  const getKeys = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/keys");
+      const jsonData = await response.json();
+      setKeys(jsonData);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  useEffect(() => { 
+    getKeys();
   }, []);
 
   return (
     <div>
-      <p>...</p>
+        <h1>Keys</h1>
+        <ul>
+            {keys.map(key => (
+                <li key={key.id}>{key.name}</li>
+            ))}
+        </ul>
     </div>
   );
 }
