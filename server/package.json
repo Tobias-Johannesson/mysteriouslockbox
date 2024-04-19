@@ -21,6 +21,7 @@
     "pg": "^8.11.5"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "nodemon": "^2.0.15"
   },
   "overrides": {
