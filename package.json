@@ -18,6 +18,7 @@
         "test-client": "cd client && npm test"
     },
     "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
         "concurrently": "^7.6.0"
     }
 }

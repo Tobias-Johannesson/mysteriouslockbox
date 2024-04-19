@@ -7,7 +7,13 @@ node_modules/
 /coverage
 
 # production
-/build
+build/
+client/build/
+
+# Development build folder
+/.next/
+/dist/
+/out/
 
 # Log files
 *.log
