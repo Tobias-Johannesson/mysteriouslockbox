@@ -6,7 +6,7 @@ const app = express();
 
 // CORS options
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN, // Allow only your React app domain, adjust as needed
+  origin: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://mysteriouslockbox.com', 
   methods: "GET, POST, PUT, DELETE"
 };
 

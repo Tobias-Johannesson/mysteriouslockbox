@@ -13,7 +13,8 @@ const KeyComponent = ({keys, setKeys}) => {
             setShowTextbox(true);
         } else {
             try {
-                const response = await fetch("http://localhost:3001/api/unlock", {
+                const apiBaseUrl = process.env.REACT_APP_API_URL;
+                const response = await fetch(`${apiBaseUrl}/unlock`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

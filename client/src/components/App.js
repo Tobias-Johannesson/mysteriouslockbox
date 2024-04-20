@@ -10,7 +10,8 @@ function App() {
   useEffect(() => {
     const fetchKeys = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/keys");
+            const apiBaseUrl = process.env.REACT_APP_API_URL;
+            const response = await fetch(`${apiBaseUrl}/keys`);
             const jsonData = await response.json();
             setKeys(jsonData);
         } catch (err) {
