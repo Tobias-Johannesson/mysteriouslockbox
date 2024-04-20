@@ -1,7 +1,4 @@
 require('dotenv').config();
-const http = require('http');
-const https = require('https');
-const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const pool = require('./db');
@@ -10,17 +7,9 @@ const app = express();
 // CORS options
 const corsOptions = {
   origin: process.env.CORS_ORIGIN, // Allow only your React app domain, adjust as needed
-  optionsSuccessStatus: 200,
   methods: "GET, POST, PUT, DELETE"
 };
 
-app.use((req, res, next) => {
-  if (req.secure || process.env.NODE_ENV === 'development') {
-    next();
-  } else {
-    res.redirect(`https://${req.headers.host}${req.url}`);
-  }
-});
 app.use(cors(corsOptions));
 app.use(express.json()); // Middleware to parse JSON bodies
 
@@ -51,18 +40,4 @@ app.post('/api/unlock', async (req, res) => {
     }
 });
 
-// Start HTTP or HTTPS server based on the environment
-if (process.env.NODE_ENV === 'production') {
-  const options = {
-      key: fs.readFileSync(process.env.SSL_KEY_PATH),
-      cert: fs.readFileSync(process.env.SSL_CERT_PATH),
-      ca: fs.readFileSync(process.env.SSL_CA_PATH)
-  };
-  https.createServer(options, app).listen(443, () => {
-      console.log('HTTPS server running on port 443');
-  });
-} else {
-  http.createServer(app).listen(3001, () => {
-      console.log('HTTP server running on port 3001');
-  });
-}
+app.listen(3001, () => console.log('Express server is running on port 3001'));

@@ -13,7 +13,7 @@ const KeyComponent = ({keys, setKeys}) => {
             setShowTextbox(true);
         } else {
             try {
-                const response = await fetch("http://localhost:3001/api/unlock", {
+                const response = await fetch("https://mysteriouslockbox.com/api/unlock", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
