@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     const fetchKeys = async () => {
         try {
-            const response = await fetch("https://mysteriouslockbox.com/api/keys");
+            const response = await fetch("http://localhost:3001/api/keys");
             const jsonData = await response.json();
             setKeys(jsonData);
         } catch (err) {
