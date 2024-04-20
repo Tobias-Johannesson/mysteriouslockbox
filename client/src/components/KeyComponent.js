@@ -7,16 +7,21 @@ const KeyComponent = () => {
     const [textboxMessage, setTextboxMessage] = useState("");
     const [showTextbox, setShowTextbox] = useState(false);
 
-    const getKeys = async () => {
-        try {
-          const response = await fetch("http://localhost:3001/api/keys");
-          const jsonData = await response.json();
-          setKeys(jsonData);
-        } catch (err) {
-          console.error(err.message);
-        }
-      };
+    // Fetch keys from the server
+    useEffect(() => {
+        const fetchKeys = async () => {
+            try {
+                const response = await fetch("http://localhost:3001/api/keys");
+                const jsonData = await response.json();
+                setKeys(jsonData);
+            } catch (err) {
+                console.error('Error fetching keys:', err.message);
+            }
+        };
+        fetchKeys();
+    }, []);
 
+    // Handle clicking on a key hole
     const handleKeyClick = async (key) => {
         if (!key.obtained) {
             setTextboxMessage(`The ${key.name} is not acquired yet.`)
@@ -45,14 +50,8 @@ const KeyComponent = () => {
         }
     };
 
-    // Handler to hide the textbox
-    const handleCloseTextbox = () => {
-        setShowTextbox(false);
-    };
-
-    useEffect(() => { 
-        getKeys();
-    }, []);
+    // Close the textbox
+    const handleCloseTextbox = () => setShowTextbox(false);
     
     return (
         <div>
@@ -65,10 +64,10 @@ const KeyComponent = () => {
                 </div>
             )}
             <div className="keyholes">
-                {keys.map(key => (
-                    !key.unlocked && ( 
-                        <button key={key.id} onClick={() => handleKeyClick(key)} className="keyhole-button"></button>
-                    )
+                {keys.map(key => !key.unlocked && (
+                    <button key={key.id} onClick={() => handleKeyClick(key)} className="keyhole-button">
+                        {key.name} {/* Optionally show the key name on the button */}
+                    </button>
                 ))}
             </div>
         </div>
