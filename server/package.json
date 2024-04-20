@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node server",
     "dev": "nodemon server",
-    "build": "echo 'No build step required for now'",
+    "build": "pm2 start npm --name 'mysterious-server' -- run start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
