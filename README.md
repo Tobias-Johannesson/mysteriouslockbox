@@ -147,10 +147,21 @@ sudo -u postgres psql
 
 Execute the following SQL commands within the PostgreSQL shell:
 ```bash
-CREATE ROLE <USERNAME> WITH LOGIN PASSWORD '<PASSWORD>';
-ALTER ROLE <USERNAME> CREATEDB;
-CREATE DATABASE keys OWNER <USERNAME>;
-GRANT ALL PRIVILEGES ON DATABASE keys TO <USERNAME>;
+CREATE ROLE challenger WITH LOGIN PASSWORD '<PASSWORD>';
+CREATE DATABASE mysterious;
+```
+
+Create the keys table.
+```bash
+CREATE TABLE keys (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    obtained BOOLEAN DEFAULT false,
+    unlocked BOOLEAN DEFAULT false
+);
+ALTER TABLE keys OWNER TO challenger;
+GRANT SELECT, INSERT, UPDATE, DELETE ON keys TO challenger;
 \q
 ```
 
@@ -183,23 +194,37 @@ psql -U <USERNAME> -d keys
 
 Replace <USERNAME> and <PASSWORD> with your actual username and a secure password. Ensure you edit paths like /etc/postgresql/14/main/... according to the PostgreSQL version installed on your system.
 
-Then we add the Tabel
+8. **Set up the Express Server**:
+In the server directory make sure the .env looks like:
+NODE_ENV=production
+DB_USER=challenger
+DB_HOST=localhost
+DB_NAME=mysterious
+DB_PASSWORD=PW
+DB_PORT=5432
+
+And the .env in the client looks like:
+REACT_APP_API_URL=https://mysteriouslockbox.com/api
+
+Make sure to update the proxy for the API to fix cross communiation
+# Proxy API requests to Express server
+location /api/ {
+    proxy_pass http://localhost:3001;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+9. **Keep server running**:
+Make sure to install pm2 and run npm run build to activate the script for the server.
 ```bash
-CREATE TABLE keys (
-    id SERIAL PRIMARY KEY,
-    key_number INT NOT NULL,
-    description TEXT
-);
+npm install pm2@latest -g
+pm2 --version
 ```
-
-Add a key and test that it works
-```bash
-\d keys
-
-INSERT INTO keys (key_number) VALUES (101);
-SELECT * FROM keys;
-```
-
 
 ### X. Troubleshooting
 ```bash
