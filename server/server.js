@@ -18,15 +18,19 @@ app.get('/api/keys', async (req, res) => {
 });
 
 // Endpoint to input data
-app.post('/api/keys', async (req, res) => {
-  const { key } = req.body;
-  try {
-    const { rows } = await pool.query('INSERT INTO keys(key) VALUES($1) RETURNING *', [key]);
-    res.status(201).json(rows[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
+app.post('/api/unlock', async (req, res) => {
+    const { keyId } = req.body; // Adjusted to keyId to match the client-side code
+    try {
+        const { rows } = await pool.query("UPDATE keys SET unlocked = true WHERE id = $1 RETURNING *;", [keyId]);
+        if (rows.length > 0) {
+            res.status(200).json(rows[0]);
+        } else {
+            res.status(404).send('Key not found');
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
 });
 
 const PORT = process.env.PORT || 3001;
