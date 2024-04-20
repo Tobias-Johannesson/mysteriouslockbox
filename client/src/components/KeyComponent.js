@@ -1,25 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../assets/styles/KeyComponent.css';
 
-const KeyComponent = () => {
+const KeyComponent = ({keys, setKeys}) => {
     // State to manage textbox visibility
-    const [keys, setKeys] = useState([]);
     const [textboxMessage, setTextboxMessage] = useState("");
     const [showTextbox, setShowTextbox] = useState(false);
-
-    // Fetch keys from the server
-    useEffect(() => {
-        const fetchKeys = async () => {
-            try {
-                const response = await fetch("http://localhost:3001/api/keys");
-                const jsonData = await response.json();
-                setKeys(jsonData);
-            } catch (err) {
-                console.error('Error fetching keys:', err.message);
-            }
-        };
-        fetchKeys();
-    }, []);
 
     // Handle clicking on a key hole
     const handleKeyClick = async (key) => {
