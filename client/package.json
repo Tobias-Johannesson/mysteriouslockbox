@@ -1,7 +1,6 @@
 {
   "name": "mysterious-client",
   "version": "0.1.0",
-  "proxy": "http://localhost:3001/",
   "private": true,
   "engines": {
     "node": ">=18.0.0 <21.0.0",
