@@ -10,7 +10,7 @@ app.use(express.json()); // Middleware to parse JSON bodies
 app.get('/api/keys', async (req, res) => {
     try {
         const { rows } = await pool.query("SELECT * FROM keys;");
-        res.json(rows);
+        res.status(200).json(rows);
     } catch (error) {
         console.error('Failed to fetch keys:', error);
         res.status(500).send('Internal Server Error');

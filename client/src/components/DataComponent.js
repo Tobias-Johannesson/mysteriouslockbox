@@ -21,7 +21,7 @@ function DataComponent() {
     <div>
         <ul>
             {keys.map(key => (
-                <li key={key.id}>{key.name}</li>
+                <li key={key.id}>{key.key_name}</li>
             ))}
         </ul>
     </div>
