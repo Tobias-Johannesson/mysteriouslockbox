@@ -3,6 +3,7 @@ import '../assets/styles/App.css';
 import KeyComponent from './KeyComponent';
 import LockboxComponent from './LockboxComponent';
 import LockComponent from './LockComponent';
+import RiddleInputComponent from './RiddleInputComponent';
 
 function App() {
   const [keys, setKeys] = useState([]);
@@ -33,8 +34,13 @@ function App() {
         {<KeyComponent keys={keys} />}
       </header>
       <main>
-        {<LockboxComponent keys={keys} />}
-        {<LockComponent keys={keys} setKeys={setKeys} />}
+        <div>
+          {<LockboxComponent keys={keys} />}
+          {<LockComponent keys={keys} setKeys={setKeys} />}
+        </div>
+        <div>
+          {<RiddleInputComponent />}
+        </div>
       </main>
       <footer></footer>
     </div>

@@ -1,0 +1,57 @@
+.riddle-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.riddle-input {
+    font-family: 'Gothic A1', sans-serif; /* A mysterious font style */
+    font-size: 16px;
+    padding: 10px;
+    width: 300px; /* Adjust based on your layout */
+    border: 2px solid #805a46; /* A dark romantic border color */
+    background-color: #f8f1f1; /* A soft romantic background */
+    color: #5a1d1d; /* Dark text for romance and mystery */
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.submit-button {
+    background-color: #805a46; /* Matching the input border for aesthetic */
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #674035; /* A darker shade for hover effect */
+}
+
+.toggle-form-button {
+    background-color: #805a46; /* Dark, rich color for the mysterious theme */
+    color: #f8f1f1; /* Light color for text to contrast with the dark background */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Padding for better sizing */
+    font-size: 16px; /* Sufficient size to be easily readable */
+    font-family: 'Times New Roman', serif; /* Font style for a romantic feel */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for interactive effects */
+    outline: none; /* Remove focus outline to keep style clean */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.toggle-form-button:hover {
+    background-color: #674035; /* Slightly lighter color on hover for feedback */
+    transform: scale(1.05); /* Slightly scale up the button on hover */
+}
+
+.toggle-form-button:active {
+    transform: scale(0.95); /* Scale down when clicked */
+    background-color: #805a46; /* Darker color when active */
+}

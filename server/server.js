@@ -24,6 +24,22 @@ app.get('/api/keys', async (req, res) => {
     }
 });
 
+// Endpoint to fetch a specific riddle by ID
+app.get('/api/riddles/:riddleId', async (req, res) => {
+    try {
+        const riddleId = req.params.riddleId; // Correctly extract riddleId from the route parameter
+        const { rows } = await pool.query("SELECT id, riddle FROM riddles WHERE id = $1;", [riddleId]); // Assuming 'riddles' table has a column 'id'
+        if (rows.length > 0) {
+            res.status(200).json(rows[0]); // Send the first row of the results
+        } else {
+            res.status(404).send('Riddle not found'); // Handle case where no riddle is found
+        }
+    } catch (error) {
+        console.error('Failed to fetch specific riddle:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 // Endpoint to input data
 app.post('/api/unlock', async (req, res) => {
     const { keyId } = req.body; // Adjusted to keyId to match the client-side code
