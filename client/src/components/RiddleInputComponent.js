@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../assets/styles/RiddleInputComponent.css'; // Ensure you import the CSS for styling
 
-const RiddleInputComponent = ({ onNewKeyObtained }) => {
+const RiddleInputComponent = ({ setKeys }) => {
     const [input, setInput] = useState('');
     const [riddle, setRiddle] = useState({});
     const [showForm, setShowForm] = useState(false); // State to control the visibility of the form
@@ -42,8 +42,9 @@ const RiddleInputComponent = ({ onNewKeyObtained }) => {
             });
 
             const result = await response.json();
+            console.log(result.correct);
             if (result.correct) {
-                onNewKeyObtained(); // Callback to update keys in parent component
+                setKeys(result.keys); // Callback to update keys in parent component
                 setInput(''); // Clear input after correct answer
                 setShowForm(false); // Hide the form after a correct answer
             } else {

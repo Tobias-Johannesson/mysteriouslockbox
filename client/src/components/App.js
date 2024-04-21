@@ -39,7 +39,7 @@ function App() {
           {<LockComponent keys={keys} setKeys={setKeys} />}
         </div>
         <div>
-          {<RiddleInputComponent />}
+          {<RiddleInputComponent setKeys={setKeys} />}
         </div>
       </main>
       <footer></footer>
