@@ -28,7 +28,7 @@ app.get('/api/keys', async (req, res) => {
 app.get('/api/riddles/:riddleId', async (req, res) => {
     try {
         const riddleId = req.params.riddleId; // Correctly extract riddleId from the route parameter
-        const { rows } = await pool.query("SELECT id, riddle FROM riddles WHERE id = $1;", [riddleId]); // Assuming 'riddles' table has a column 'id'
+        const { rows } = await pool.query("SELECT id, riddle, unlocked FROM riddles WHERE id = $1;", [riddleId]); // Assuming 'riddles' table has a column 'id'
         if (rows.length > 0) {
             res.status(200).json(rows[0]); // Send the first row of the results
         } else {

@@ -3,7 +3,7 @@ import '../assets/styles/RiddleInputComponent.css'; // Ensure you import the CSS
 
 const RiddleInputComponent = ({ setKeys }) => {
     const [input, setInput] = useState('');
-    const [riddle, setRiddle] = useState({});
+    const [riddle, setRiddle] = useState({}); // Set to no riddles to answer
     const [showForm, setShowForm] = useState(false); // State to control the visibility of the form
 
     // Fetch a riddle when the component mounts
@@ -19,9 +19,11 @@ const RiddleInputComponent = ({ setKeys }) => {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const data = await response.json();
+            console.log(data);
             setRiddle(data);
         } catch (error) {
             console.error('Failed to fetch riddle:', error);
+            setRiddle({ unlocked : true });
         }
     };
 
@@ -47,6 +49,7 @@ const RiddleInputComponent = ({ setKeys }) => {
                 setKeys(result.keys); // Callback to update keys in parent component
                 setInput(''); // Clear input after correct answer
                 setShowForm(false); // Hide the form after a correct answer
+                fetchRiddle(riddle.id + 1); // Can query next riddle assuming serial ones
             } else {
                 alert("Wrong answer, try again!");
             }
@@ -57,9 +60,11 @@ const RiddleInputComponent = ({ setKeys }) => {
 
     return (
         <div className="riddle-area">
-            <button onClick={() => setShowForm(!showForm)} className="toggle-form-button">
-                {showForm ? 'Hide Riddle' : 'Show Riddle'}
-            </button>
+            {!riddle.unlocked && (
+                <button onClick={() => setShowForm(!showForm)} className="toggle-form-button">
+                    {showForm ? 'Hide Riddle' : 'Show Riddle'}
+                </button>
+            )}
             {showForm && (
                 <div className="riddle-form">
                     <div className="riddle-question">{riddle.riddle}</div>
