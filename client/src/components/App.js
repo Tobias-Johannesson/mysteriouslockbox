@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/styles/App.css';
-import LockboxComponent from './LockboxComponent';
 import KeyComponent from './KeyComponent';
+import LockboxComponent from './LockboxComponent';
+import LockComponent from './LockComponent';
 
 function App() {
   const [keys, setKeys] = useState([]);
@@ -28,8 +29,14 @@ function App() {
 
   return (
     <div className="App">
-      {<LockboxComponent keys={keys} />}
-      {<KeyComponent keys={keys} setKeys={setKeys} />}
+      <header>
+        {<KeyComponent keys={keys} />}
+      </header>
+      <main>
+        {<LockboxComponent keys={keys} />}
+        {<LockComponent keys={keys} setKeys={setKeys} />}
+      </main>
+      <footer></footer>
     </div>
   );
 }
