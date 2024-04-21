@@ -6,11 +6,12 @@
     "scripts": {
         "start": "concurrently \"npm run start-server\" \"npm run start-client\"",
         "start-server": "cd server && npm start",
+        "pm2-start": "cd server && npm pm2-start",
         "start-client": "cd client && npm start",
         "install-dependencies": "npm install && npm run install-server && npm run install-client",
         "install-server": "cd server && npm install",
         "install-client": "cd client && npm install",
-        "build": "concurrently \"npm run build-server\" \"npm run build-client\"",
+        "build": "concurrently \"npm run build-server\" \"npm run build-client\" \"pm2 restart 'mysterious-server'\"",
         "build-server": "cd server && npm run build",
         "build-client": "cd client && npm run build",
         "test": "concurrently \"npm run test-server\" \"npm run test-client\"",
