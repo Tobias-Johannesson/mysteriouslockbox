@@ -8,13 +8,13 @@ const RiddleInputComponent = ({ setKeys }) => {
 
     // Fetch a riddle when the component mounts
     useEffect(() => {
-        fetchRiddle(1); // Assuming you have a default riddle to fetch initially
+        fetchFirstRiddle();
     }, []);
 
-    const fetchRiddle = async (riddleId) => {
+    const fetchFirstRiddle = async () => {
         try {
             const apiBaseUrl = process.env.REACT_APP_API_URL;
-            const response = await fetch(`${apiBaseUrl}/riddles/${riddleId}`);
+            const response = await fetch(`${apiBaseUrl}/riddles/first-locked`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -25,7 +25,7 @@ const RiddleInputComponent = ({ setKeys }) => {
             console.error('Failed to fetch riddle:', error);
             setRiddle({ unlocked : true });
         }
-    };
+    }
 
     const handleChange = (event) => {
         setInput(event.target.value);
@@ -49,7 +49,7 @@ const RiddleInputComponent = ({ setKeys }) => {
                 setKeys(result.keys); // Callback to update keys in parent component
                 setInput(''); // Clear input after correct answer
                 setShowForm(false); // Hide the form after a correct answer
-                fetchRiddle(riddle.id + 1); // Can query next riddle assuming serial ones
+                fetchFirstRiddle(); // Can query next riddle assuming serial ones
             } else {
                 alert("Wrong answer, try again!");
             }

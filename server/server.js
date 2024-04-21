@@ -24,6 +24,20 @@ app.get('/api/keys', async (req, res) => {
     }
 });
 
+app.get('/api/riddles/first-locked', async (req, res) => {
+    try {
+        const { rows } = await pool.query("SELECT id, riddle, unlocked FROM riddles WHERE unlocked = false ORDER BY id ASC LIMIT 1;");
+        if (rows.length > 0) {
+            res.status(200).json(rows[0]); // Send the riddle with the smallest id
+        } else {
+            res.status(404).send('No unlocked riddles available'); // Handle case where no riddles are in the database
+        }
+    } catch (error) {
+        console.error('Failed to fetch the first unlocked riddle:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 // Endpoint to fetch a specific riddle by ID
 app.get('/api/riddles/:riddleId', async (req, res) => {
     try {
