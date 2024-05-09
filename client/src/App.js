@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Home from './pages/HomePage';
-import Gratitude from './pages/GratitudePage'; // Assuming Tree is a separate component
+import Gratitude from './pages/GratitudePage';
 
 function App() {
   return (

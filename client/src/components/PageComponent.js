@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/PageComponent.css';
-//import treeIcon from '../assets/images/tree-icon.png';
 
 const PageComponent = ( {keys, setShowMain} ) => {
     const navigate = useNavigate(); // Hook for navigating

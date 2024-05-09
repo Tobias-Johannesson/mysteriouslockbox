@@ -1,29 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import '../assets/styles/GratitudeComponent.css'; // Assume custom styles for animations and layout
 import DOMPurify from 'dompurify';
-import backIcon from '../assets/images/back-arrow-icon.png';
-import TreeComponent from './TreeComponent';
 import { useNavigate } from 'react-router-dom';
+import '../assets/styles/GratitudeComponent.css';
+import backIcon from '../assets/images/back-arrow.png';
+import TreeComponent from './TreeComponent';
 
-const GratitudeComponent = ( {setShowMain} ) => {
+const GratitudeComponent = ( ) => {
     const [gratitudes, setGratitudes] = useState([]);
     const [canSubmit, setCanSubmit] = useState(false);
     const [hoursToNext, setHoursToNext] = useState(0);
     const [newGratitude, setNewGratitude] = useState('');
-    const navigate = useNavigate(); // Hook for navigating
+    const navigate = useNavigate();
 
-    const navigateToHome = () => {
-        navigate("/"); 
-    };
-
-    // Fetch previous gratitudes when the component mounts
     useEffect(() => {
         fetchGratitudes();
     }, []);
 
     const fetchGratitudes = async () => {
         const apiBaseUrl = process.env.REACT_APP_API_URL;
-
         try {
             const response = await fetch(`${apiBaseUrl}/gratitudes`);
             if (!response.ok) {
@@ -38,20 +32,18 @@ const GratitudeComponent = ( {setShowMain} ) => {
             setHoursToNext(data.hoursToNext);
         } catch (error) {
             console.error('Failed to fetch gratitudes:', error);
-            setCanSubmit(false);
-            setHoursToNext(0);  // Reset time until the next submission
+            alert('Failed to load gratitudes, please try again.'); // User-friendly error message
         }
     };
 
     const handleSubmit = async (event) => {
-        const apiBaseUrl = process.env.REACT_APP_API_URL;
         event.preventDefault();
         if (!canSubmit) return;
 
-        try {
-            const sanitizedContent = DOMPurify.sanitize(newGratitude);
-            console.log(sanitizedContent)
+        const apiBaseUrl = process.env.REACT_APP_API_URL;
+        const sanitizedContent = DOMPurify.sanitize(newGratitude);
 
+        try {
             const response = await fetch(`${apiBaseUrl}/gratitudes`, {
                 method: 'POST',
                 headers: {
@@ -59,12 +51,10 @@ const GratitudeComponent = ( {setShowMain} ) => {
                 },
                 body: JSON.stringify({ content: sanitizedContent })
             });
+            if (!response.ok) throw new Error('Failed to submit gratitude');
+
             setNewGratitude('');
             fetchGratitudes();
-
-            const data = await response.json();
-            console.log(data);
-            
         } catch (error) {
             console.error('Error submitting gratitude:', error);
         }
@@ -73,18 +63,19 @@ const GratitudeComponent = ( {setShowMain} ) => {
     return (
         <div className="gratitude-tree-container">
             <div>
-                <button onClick={() => navigateToHome()} className="back-button">
+                <button onClick={() => navigate("/")} className="back-button">
                     <img src={backIcon} alt="Back to Main Page Button" />
                 </button>
             </div>
 
-            <div className="tree-display">
-                {<TreeComponent gratitudes={gratitudes}/>}
+            {<TreeComponent gratitudeCount={gratitudes.length}/>}
+
+            <div>
                 <p>You have submitted {gratitudes.length} {(gratitudes.length === 1) ? 'gratitude.' : 'gratitudes.' }</p>
                 <p>{canSubmit ? 'You can submit another gratitude.' : `Wait ${hoursToNext} hours to submit another.`}</p>
             </div>
             
-            {(canSubmit) && 
+            {canSubmit && (
                 <form onSubmit={handleSubmit} className="gratitude-form">
                     <textarea 
                         className="gratitude-textarea" 
@@ -92,14 +83,11 @@ const GratitudeComponent = ( {setShowMain} ) => {
                         onChange={(e) => setNewGratitude(e.target.value)} 
                         disabled={!canSubmit} 
                     />
-                    <button className="gratitude-button" 
-                        type="submit" 
-                        disabled={!canSubmit}
-                    >
+                    <button type="submit" disabled={!canSubmit} className="gratitude-button">
                         Submit
                     </button>
                 </form>
-            }
+            )}
             
         </div>
     );

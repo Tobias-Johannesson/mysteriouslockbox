@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import '../assets/styles/LockComponent.css';
 
 const KeyComponent = ({keys, setKeys}) => {
-    // State to manage textbox visibility
     const [textboxMessage, setTextboxMessage] = useState("");
     const [showTextbox, setShowTextbox] = useState(false);
 

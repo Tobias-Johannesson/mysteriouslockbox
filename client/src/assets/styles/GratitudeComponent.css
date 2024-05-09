@@ -34,6 +34,8 @@
     width: 100px; /* Adjust based on your needs */
     height: auto;
     transition: transform 0.3s ease; /* Smooth transform effect */
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
 }
 
 .back-button:hover {
