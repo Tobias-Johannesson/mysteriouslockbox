@@ -79,9 +79,9 @@ const GratitudeComponent = ( {setShowMain} ) => {
             </div>
             
             {(canSubmit) && 
-                <form onSubmit={handleSubmit}>
-                    <textarea value={newGratitude} onChange={(e) => setNewGratitude(e.target.value)} disabled={!canSubmit} />
-                    <button type="submit" disabled={!canSubmit}>Submit</button>
+                <form onSubmit={handleSubmit} class="gratitude-form">
+                    <textarea value={newGratitude} class="gratitude-textarea" onChange={(e) => setNewGratitude(e.target.value)} disabled={!canSubmit} />
+                    <button type="submit" disabled={!canSubmit} class="gratitude-button">Submit</button>
                 </form>
             }
             

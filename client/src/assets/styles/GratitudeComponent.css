@@ -39,3 +39,53 @@
 .back-button:hover {
     transform: scale(1.1); /* Scales the image up on hover */
 }
+
+.gratitude-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(245, 255, 245, 0.8); /* Light green background with some transparency */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 100, 0, 0.1);
+    width: 300px; /* Adjust width as needed */
+    margin: 20px auto;
+}
+
+/* Styling for the textarea */
+.gratitude-textarea {
+    width: 90%;
+    height: 100px; /* Adjust height as needed */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: none; /* Prevent resizing */
+}
+
+.gratitude-textarea:focus {
+    border-color: #66cc66; /* Greenish shade when focused */
+    box-shadow: 0 0 5px rgba(102, 204, 102, 0.5); /* Light green glow */
+}
+
+/* Button styling */
+.gratitude-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #44c767; /* Vibrant green */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.gratitude-button:hover {
+    background-color: #36a64f; /* A darker green on hover */
+}
+
+.gratitude-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
