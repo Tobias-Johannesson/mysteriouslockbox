@@ -1,0 +1,41 @@
+.gratitude-tree-container {
+    text-align: center;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    /**/
+    background-image: url('../images/tree-background.webp');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100vh;  /* This ensures the <body> element covers the full viewport height */
+    width: 100vw;   /* This ensures the <body> element covers the full viewport width */
+    margin: 0;      /* Removes default margin provided by browsers */
+    padding: 0;     /* Removes default padding provided by browsers */
+}
+
+.back-button {
+    position: fixed;
+    top: 20px; /* Adjust based on your header */
+    right: 20px;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    background-color: transparent; /* Make the background transparent */
+    outline: none; /* Removes the outline */
+}
+
+.back-button img {
+    width: 100px; /* Adjust based on your needs */
+    height: auto;
+    transition: transform 0.3s ease; /* Smooth transform effect */
+}
+
+.back-button:hover {
+    transform: scale(1.1); /* Scales the image up on hover */
+}

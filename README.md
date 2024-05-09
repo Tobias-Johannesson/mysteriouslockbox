@@ -256,3 +256,5 @@ The following JSON outlines the necessary permissions for the DNS IAM role used 
 
 ### Y. Misc
 All art is generated using OpenAI and the background from some images is cleared using the adove tool at https://new.express.adobe.com/tools/remove-background.
+
+Useful commands: https://github.com/iqbal125/terminal-commands-fullstack

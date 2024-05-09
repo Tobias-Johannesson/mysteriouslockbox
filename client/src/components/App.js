@@ -4,9 +4,12 @@ import KeyComponent from './KeyComponent';
 import LockboxComponent from './LockboxComponent';
 import LockComponent from './LockComponent';
 import RiddleInputComponent from './RiddleInputComponent';
+import PageComponent from './PageComponent';
+import GratitudeComponent from './GratitudeComponent';
 
 function App() {
   const [keys, setKeys] = useState([]);
+  const [showMain, setShowMain] = useState(true);
 
   // Fetch keys from the server
   useEffect(() => {
@@ -29,20 +32,26 @@ function App() {
 }, []);
 
   return (
-    <div className="App">
-      <header>
-        {<KeyComponent keys={keys} />}
-      </header>
-      <main>
-        <div>
-          {<LockboxComponent keys={keys} />}
-          {<LockComponent keys={keys} setKeys={setKeys} />}
-        </div>
-        <div>
-          {<RiddleInputComponent setKeys={setKeys} />}
-        </div>
-      </main>
-      <footer></footer>
+    <div>
+      { !showMain && ( <div>
+        {<GratitudeComponent setShowMain={setShowMain}/>}
+      </div> )}
+      { showMain && (<div className="App">
+        <header>
+          {<KeyComponent keys={keys} />}
+          {<PageComponent setShowMain={setShowMain} />}
+        </header>
+        <main>
+          <div>
+            {<LockboxComponent keys={keys} />}
+            {<LockComponent keys={keys} setKeys={setKeys} />}
+          </div>
+          <div>
+            {<RiddleInputComponent setKeys={setKeys} />}
+          </div>
+        </main>
+        <footer></footer>
+      </div>)}
     </div>
   );
 }
