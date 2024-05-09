@@ -42,15 +42,15 @@ const GratitudeComponent = ( {setShowMain} ) => {
         if (!canSubmit) return;
 
         try {
-            const sanitizedContent = DOMPurify.sanitize(event.target.value);
-            setNewGratitude(sanitizedContent); // Move into a onChange...
+            const sanitizedContent = DOMPurify.sanitize(newGratitude);
+            console.log(sanitizedContent)
 
             const response = await fetch(`${apiBaseUrl}/gratitudes`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ content: newGratitude })
+                body: JSON.stringify({ content: sanitizedContent })
             });
             setNewGratitude('');
             fetchGratitudes();
@@ -79,9 +79,19 @@ const GratitudeComponent = ( {setShowMain} ) => {
             </div>
             
             {(canSubmit) && 
-                <form onSubmit={handleSubmit} class="gratitude-form">
-                    <textarea value={newGratitude} class="gratitude-textarea" onChange={(e) => setNewGratitude(e.target.value)} disabled={!canSubmit} />
-                    <button type="submit" disabled={!canSubmit} class="gratitude-button">Submit</button>
+                <form onSubmit={handleSubmit} className="gratitude-form">
+                    <textarea 
+                        className="gratitude-textarea" 
+                        value={newGratitude} 
+                        onChange={(e) => setNewGratitude(e.target.value)} 
+                        disabled={!canSubmit} 
+                    />
+                    <button className="gratitude-button" 
+                        type="submit" 
+                        disabled={!canSubmit}
+                    >
+                        Submit
+                    </button>
                 </form>
             }
             

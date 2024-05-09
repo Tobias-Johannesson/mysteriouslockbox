@@ -16,13 +16,13 @@ const RiddleInputComponent = ({ setKeys }) => {
             const apiBaseUrl = process.env.REACT_APP_API_URL;
             const response = await fetch(`${apiBaseUrl}/riddles/first-locked`);
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error(`Status code ${response.status}`);
             }
             const data = await response.json();
             console.log(data);
             setRiddle(data);
         } catch (error) {
-            console.error('Failed to fetch riddle:', error);
+            console.error('Failed to fetch riddle: ', error);
             setRiddle({ unlocked : true });
         }
     }

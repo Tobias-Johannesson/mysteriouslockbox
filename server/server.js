@@ -30,7 +30,7 @@ app.get('/api/riddles/first-locked', async (req, res) => {
         if (rows.length > 0) {
             res.status(200).json(rows[0]); // Send the riddle with the smallest id
         } else {
-            res.status(404).send('No unlocked riddles available'); // Handle case where no riddles are in the database
+            res.status(404).json({ error: 'No unlocked riddles available'}); // Handle case where no riddles are in the database
         }
     } catch (error) {
         console.error('Failed to fetch the first unlocked riddle:', error);
@@ -151,22 +151,35 @@ app.get('/api/gratitudes', async (req, res) => {
   
 // Endpoint to input gratitude
 app.post('/api/gratitudes', async (req, res) => {
-    const { content } = req.body; // Make secure, check for parsing errors potentially!!!
-    const result = await pool.query('SELECT submitted_at FROM gratitudes ORDER BY submitted_at DESC LIMIT 1');
-    const lastSubmission = result.rows[0] ? new Date(result.rows[0].submitted_at) : null;
-    const now = new Date().getTime();
+    const content = req.body.content;
+    if (typeof content !== 'string' || content.trim().length === 0) {
+        return res.status(400).json({ message: "Content must be a non-empty string." });
+    }
 
-    // Calculate difference in milliseconds
-    const difference = lastSubmission ? (now - lastSubmission) : null;
-  
+    let difference;
+
+    try {
+        const result = await pool.query('SELECT submitted_at FROM gratitudes ORDER BY submitted_at DESC LIMIT 1');
+        const lastSubmission = result.rows[0] ? new Date(result.rows[0].submitted_at) : null;
+        const now = new Date();
+        
+        // Calculate difference in milliseconds
+        difference = lastSubmission ? (now.getTime() - lastSubmission.getTime()) : null;
+    } catch (error) {
+        console.error('Error getting previous gratitude:', error);
+        return res.status(500).send('Error getting previous gratitude: ' + error.message);
+    }
+
     if (difference !== null && difference < 86400000) { // 86400000 ms = 24 hours
         return res.status(403).json({ message: "You can only submit one gratitude every 24 hours" });
     }
   
     try {
-        await pool.query('INSERT INTO gratitudes (content, submitted_at) VALUES ($1, $2)', [content, now.toISOString()]);
-        res.status(201).send('Gratitude submitted successfully');
+        const submittedAt = new Date().toISOString(); // Correctly format the timestamp
+        await pool.query('INSERT INTO gratitudes (content, submitted_at) VALUES ($1, $2)', [content, submittedAt]);
+        res.status(201).json({ message: 'Gratitude submitted successfully' });
     } catch (error) {
+        console.error('Error submitting gratitude:', error);
         res.status(500).send('Error submitting gratitude: ' + error.message);
     }
 });
