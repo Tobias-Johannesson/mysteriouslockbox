@@ -3,7 +3,7 @@ import '../assets/styles/RiddleInputComponent.css'; // Ensure you import the CSS
 
 const RiddleInputComponent = ({ setKeys }) => {
     const [input, setInput] = useState('');
-    const [riddle, setRiddle] = useState({}); // Set to no riddles to answer
+    const [riddle, setRiddle] = useState({ unlocked : true }); // Set to no riddles to answer
     const [showForm, setShowForm] = useState(false); // State to control the visibility of the form
 
     // Fetch a riddle when the component mounts
